@@ -1,0 +1,21 @@
+replicaCount: 1
+
+image:
+  repository: us-central1-docker.pkg.dev/gitops-lab-502912/gitops-demo/gitops-demo
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+app:
+  version: "1.0.0"
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
