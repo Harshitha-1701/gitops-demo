@@ -4,5 +4,5 @@ helm:
     value: us-central1-docker.pkg.dev/gitops-lab-502912/gitops-demo/gitops-demo
     forcestring: true
   - name: image.tag
-    value: 660d40178eba72ffc521f6a73486b37b765a83d2
+    value: aba6b1e99723c940b48eddc8c041fe733098cfec
     forcestring: true
