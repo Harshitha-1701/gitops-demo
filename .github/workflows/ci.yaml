@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'app/**'
+   
 
 env:
   IMAGE: ${{ vars.GAR_REGISTRY_HOSTNAME }}/${{ vars.GCP_PROJECT_ID }}/${{ vars.GAR_REPOSITORY }}/${{ vars.GAR_REPOSITORY }}
