@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/image-list: gitops-demo=us-central1-docker.pkg.dev/gitops-lab-502912/gitops-demo/gitops-demo
-    argocd-image-updater.argoproj.io/gitops-demo.update-strategy: latest
+    argocd-image-updater.argoproj.io/gitops-demo.update-strategy: newest-build
     argocd-image-updater.argoproj.io/gitops-demo.helm.image-name: image.repository
     argocd-image-updater.argoproj.io/gitops-demo.helm.image-tag: image.tag
     argocd-image-updater.argoproj.io/write-back-method: git
