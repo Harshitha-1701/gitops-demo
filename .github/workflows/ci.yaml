@@ -28,12 +28,13 @@ jobs:
       - name: Configure Docker for Artifact Registry
         run: gcloud auth configure-docker ${{ vars.GAR_REGISTRY_HOSTNAME }} --quiet
 
-      - name: Build Docker image
-        run: |
-          docker build \
-            --tag ${{ env.IMAGE }}:${{ github.sha }} \
-            app/
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
-      - name: Push Docker image
-        run: |
-          docker push ${{ env.IMAGE }}:${{ github.sha }}
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: app/
+          push: true
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ env.IMAGE }}:${{ github.sha }}
