@@ -32,10 +32,8 @@ jobs:
         run: |
           docker build \
             --tag ${{ env.IMAGE }}:${{ github.sha }} \
-            --tag ${{ env.IMAGE }}:latest \
             app/
 
       - name: Push Docker image
         run: |
           docker push ${{ env.IMAGE }}:${{ github.sha }}
-          docker push ${{ env.IMAGE }}:latest
