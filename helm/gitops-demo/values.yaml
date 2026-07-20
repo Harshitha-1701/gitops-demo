@@ -4,6 +4,7 @@ image:
   repository: us-central1-docker.pkg.dev/gitops-lab-502912/gitops-demo/gitops-demo
   tag: "latest"
   pullPolicy: IfNotPresent
+  pullSecret: artifact-registry-key
 
 service:
   type: ClusterIP
