@@ -1,1 +1,42 @@
-# Filled in Milestone 3 after the kind cluster and Argo CD are verified
+name: Build and Push to Artifact Registry
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'app/**'
+
+env:
+  IMAGE: ${{ vars.GAR_REGISTRY_HOSTNAME }}/${{ vars.GCP_PROJECT_ID }}/${{ vars.GAR_REPOSITORY }}/${{ vars.GAR_REPOSITORY }}
+
+jobs:
+  build-and-push:
+    name: Build and Push
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_ENCODED_API_KEY }}
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker ${{ vars.GAR_REGISTRY_HOSTNAME }} --quiet
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            --tag ${{ env.IMAGE }}:${{ github.sha }} \
+            --tag ${{ env.IMAGE }}:latest \
+            app/
+
+      - name: Push Docker image
+        run: |
+          docker push ${{ env.IMAGE }}:${{ github.sha }}
+          docker push ${{ env.IMAGE }}:latest
